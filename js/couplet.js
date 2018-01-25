@@ -17,3 +17,7 @@ var wageMiddle = ["佛系人生","保持微笑","我爱祖国","扎心了老铁"
 console.log(businessUp.length);
 console.log(businessDown.length);
 console.log(businessMiddle.length);
+for(var i=0;i<businessMiddle.length;i++)
+{
+	console.log(businessMiddle[i].length);
+}
