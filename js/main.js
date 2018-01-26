@@ -22,10 +22,15 @@ function loadProgress(pre){
 //游戏开始
 function startGame(result){
 	imgList=result;
-//	homepage();
+	
+	setTimeout(function(){
+		$('#loading').fadeOut(500);
+		homepage();
+	},2500);
 //	select();
 //	problem();
-   couplet();
+// couplet();
+// showRed();
 }
 //首页
 function homepage(){
@@ -325,7 +330,7 @@ function select(){
 				ease: LEasing.None.easeIn()
 			});
 			LTweenLite.to(word,1.0,{alpha:1,onComplete:function() {
-				var htime = 1.0;
+				var htime = 0.5;
 				LTweenLite.to(head[0],htime,{alpha:1,onComplete:function(){
 					texts[0] = new bmp(282,503,imgList['select01']);
 					selectLayer.addChild(texts[0]);
@@ -391,6 +396,7 @@ function select(){
 												choiceLayer[0].graphics.drawRect(0, '#000000', [130, 438, 400, 640], false, '#000000');
 												selectLayer.addChild(choiceLayer[0]);
 												choiceLayer[0].addEventListener(LMouseEvent.MOUSE_DOWN,function(){
+													choiceLayer[0].removeEventListener(LMouseEvent.MOUSE_DOWN);
 													if(isChoice==false){
 														isChoice=true;
 														choiceType = 0;
@@ -407,6 +413,7 @@ function select(){
 												choiceLayer[1].graphics.drawRect(0, '#000000', [550, 438, 400, 640], false, '#000000');
 												selectLayer.addChild(choiceLayer[1]);
 												choiceLayer[1].addEventListener(LMouseEvent.MOUSE_DOWN,function(){
+													choiceLayer[1].removeEventListener(LMouseEvent.MOUSE_DOWN);
 													if(isChoice==false){
 														isChoice=true;
 														choiceType = 1;
@@ -423,6 +430,7 @@ function select(){
 												choiceLayer[2].graphics.drawRect(0, '#000000', [130, 1100, 400, 640], false, '#000000');
 												selectLayer.addChild(choiceLayer[2]);
 												choiceLayer[2].addEventListener(LMouseEvent.MOUSE_DOWN,function(){
+													choiceLayer[2].removeEventListener(LMouseEvent.MOUSE_DOWN);
 													if(isChoice==false){
 														isChoice=true;
 														choiceType = 2;
@@ -439,6 +447,7 @@ function select(){
 												choiceLayer[3].graphics.drawRect(0, '#000000', [550, 1100, 400, 640], false, '#000000');
 												selectLayer.addChild(choiceLayer[3]);
 												choiceLayer[3].addEventListener(LMouseEvent.MOUSE_DOWN,function(){
+													choiceLayer[3].removeEventListener(LMouseEvent.MOUSE_DOWN);
 													if(isChoice==false){
 														isChoice=true;
 														choiceType = 3;
@@ -620,7 +629,38 @@ function problem(){
 						LTweenLite.to(answers[0],0.5,{alpha:1,onComplete:function(){
 							LTweenLite.to(answers[1],0.5,{alpha:1,onComplete:function(){
 								LTweenLite.to(answers[2],0.5,{alpha:1,onComplete:function(){
-							
+									var an = [];
+									an[0] = new LSprite();
+									an[1] = new LSprite();
+									an[2] = new LSprite();
+									an[0].graphics.drawRect(0, "#ff0000", [223,1255,633,144],false,"rgba(0,0,0,0.5)");
+									an[0].addEventListener(LMouseEvent.MOUSE_DOWN,function(){
+										an[0].removeEventListener(LMouseEvent.MOUSE_DOWN);
+										LTweenLite.to(proLayer,1.0,{alpha:0,onComplete:function(){
+											proLayer.remove();
+										}});
+										couplet();
+									});
+									proLayer.addChild(an[0]);
+									an[1].graphics.drawRect(0, "#ff0000", [223,1425,633,144],false,"rgba(0,0,0,0.5)");
+									an[1].addEventListener(LMouseEvent.MOUSE_DOWN,function(){
+										an[1].removeEventListener(LMouseEvent.MOUSE_DOWN);
+										LTweenLite.to(proLayer,1.0,{alpha:0,onComplete:function(){
+											proLayer.remove();
+										}});
+										couplet();
+									});
+									proLayer.addChild(an[1]);
+									an[2].graphics.drawRect(0, "#ff0000", [223,1595,633,144],false,"rgba(0,0,0,0.5)");
+									proLayer.addChild(an[2]);
+									an[2].addEventListener(LMouseEvent.MOUSE_DOWN,function(){
+										an[2].removeEventListener(LMouseEvent.MOUSE_DOWN);
+										LTweenLite.to(proLayer,1.0,{alpha:0,onComplete:function(){
+											proLayer.remove();
+											
+										}});
+										couplet();
+									});
 								}});
 							}});
 						}});
@@ -767,16 +807,85 @@ function couplet(){
 		ease: LEasing.None.easeIn()
 	});
 	
+	
 	LTweenLite.to(cLayer,1.0,{alpha:1.0,onComplete:function(){
 		LTweenLite.to(word,1.0,{alpha:1.0,onComplete:function(){
 			LTweenLite.to(brush,1.0,{alpha:1.0,onComplete:function(){
 				var brushLayer = new LSprite();
 				brushLayer.graphics.drawRect(0, "#ff0000", [320, 1300, 340, 300],false,"#000000");
 				cLayer.addChild(brushLayer);
+				
+				var hand = new bmp(380,1560,imgList['hand']);
+				cLayer.addChild(hand);
+				var handTween = LTweenLite.to(hand,0.6,{alpha:0,loop:true,y:1480,onComplete:function(){
+					hand.alpha = 1;
+					hand.y = 1560;
+				}});
 				brushLayer.addEventListener(LMouseEvent.MOUSE_DOWN,function(){
 					brushLayer.removeEventListener(LMouseEvent.MOUSE_DOWN);
+					hand.remove();
+					handTween.pause();
 					LTweenLite.to(word,0.5,{alpha:0,onComplete:function(){
-						
+						LTweenLite.to(er,0.5,{alpha:1});
+						LTweenLite.to(btn03,0.5,{alpha:1});
+						LTweenLite.to(reel01,0.5,{alpha:1});
+						LTweenLite.to(reel02,0.5,{alpha:1});
+						LTweenLite.to(reel03,0.5,{alpha:1,onComplete:function(){
+//							LTweenLite.remove(tween);
+//							LTweenLite.pauseAll ();
+							brushTween.pause();
+							reel01.show(1.0,2);
+							reel02.show(1.0,0);
+							reel03.show(1.0,1);
+							setTimeout(function(){
+								var rice = new bmp(358,780,imgList['rice']);
+								cLayer.addChild(rice);
+								var r1 = new LTransitionManager(rice);
+								var rm1 = {
+									type: LTransition.Fly,
+									startPoint: 5,
+									duration: 0.25,
+									direction: LTransition.IN,
+									easing: Strong.easeIn()
+								};
+								r1.startTransition(rm1);
+								$('#img').show();
+								$('#img').css('opacity',0);
+								btn01.visible=false;
+								btn02.visible=false;
+								setTimeout(function(){
+									html2canvas(game, {
+										onrendered: function(canvas) {
+											//添加属性
+											canvas.setAttribute('id', 'thecanvas');
+											//读取属性值
+											// var value= canvas.getAttribute('id');
+											document.getElementById('show').appendChild(canvas);
+											$('#img').attr("src", document.getElementById('thecanvas').toDataURL("image/png"));
+											btn01.visible=true;
+											btn02.visible=true;	
+											LTweenLite.to(btn01,0.5,{alpha:1});
+											LTweenLite.to(btn02,0.5,{alpha:1});
+										}
+									});
+								},20);
+								
+//								btn01.visible=true;
+//								btn02.visible=true;
+							},3000);	
+							$('#getRed').show();
+							$('#getRed').on('touchstart',function(){
+								LTweenLite.to(cLayer, 1.0, {
+									alpha: 0,
+									onComplete: function() {
+										cLayer.remove();
+										$('#getRed').hide();
+										$('#img').hide();
+									}
+								});
+								showRed();
+							});
+						}});
 					}});
 				});
 			}});
@@ -792,19 +901,19 @@ function couplet(){
 			title[2] = businessDown[index];
 			break;
 		case 1:
-			var index = parseInt(businessUp.length*Math.random());
+			var index = parseInt(whiteUp.length*Math.random());
 			title[0] = whiteMiddle[index];
 			title[1] = whiteUp[index];
 			title[2] = whiteDown[index];
 			break;
 		case 2:
-			var index = parseInt(businessUp.length*Math.random());
+			var index = parseInt(studentUp.length*Math.random());
 			title[0] = studentMiddle[index];
 			title[1] = studentUp[index];
 			title[2] = studentDown[index];
 			break;
 		case 3:
-			var index = parseInt(businessUp.length*Math.random());
+			var index = parseInt(wageUp.length*Math.random());
 			title[0] = wageMiddle[index];
 			title[1] = wageUp[index];
 			title[2] = wageDown[index];
@@ -828,4 +937,204 @@ function couplet(){
 	var reel03= new reelsv(700,488,title[2]);
 	reel03.alpha = 0;
 	cLayer.addChild(reel03);
+	var loader = new LLoader();
+	var er;
+	loader.addEventListener(LEvent.COMPLETE, function(event){
+		er = new LBitmap(new LBitmapData(event.target));		
+		er.scaleX = 132/er.getWidth();
+		er.scaleY = 132/er.getHeight();
+		er.x = 777;
+		er.y = 1606;
+		er.alpha = 0;		
+		cLayer.addChild(er);
+		
+    });
+    loader.load('img/er.png', "bitmapData");
+	
+}
+//显示红包
+function showRed(){
+	var showLayer = new LSprite();
+	showLayer.alpha = 0;
+	backLayer.addChild(showLayer);
+	//背景图片
+	var back = new bmp(0,0,imgList['red']);
+	showLayer.addChild(back);
+	//灯笼
+	var lantern1 = new bmp(420, 130, imgList['lantern1']);
+	lantern1.rotateCenter = false;
+	showLayer.addChild(lantern1);
+	LTweenLite.to(lantern1, 1, {
+		rotate: 5,
+		loop: true,
+		ease: LEasing.None.easeIn()
+	}).to(lantern1, 1, {
+		rotate: 0,
+		ease: LEasing.None.easeIn()
+	});
+	var lantern2 = new bmp(515, 130, imgList['lantern2']);
+	lantern2.rotateCenter = false;
+	showLayer.addChild(lantern2);
+	LTweenLite.to(lantern2, 1.2, {
+		rotate: -5,
+		loop: true,
+		ease: LEasing.None.easeIn()
+	}).to(lantern2, 1.2, {
+		rotate: 0,
+		ease: LEasing.None.easeIn()
+	});
+	//云
+	var littleSky = new bmp(0, 170, imgList['littleSky']);
+	littleSky.x = rCenterWidth(littleSky);
+	littleSky.bigAndSmall(2, 2, 2, 0.02, 0, true);
+	showLayer.addChild(littleSky);
+	//logo
+	var logo = new bmp(0, 1825, imgList['logo']);
+	logo.x = rCenterWidth(logo);
+	logo.bigAndSmall(2, 2, 2, 0.02, 0, true);
+	showLayer.addChild(logo);
+	
+	//打开红包
+	var open = new btn(0, 1595, imgList['open']);
+	open.x = rCenterWidth(open);
+	open.bigAndSmall(2, 2, 2, 0.02, 0, true);
+	showLayer.addChild(open);
+	//打开红包
+	var redBox = new bmp(0, 690, imgList['redBox']);
+	redBox.x = rCenterWidth(redBox);
+	showLayer.addChild(redBox);
+	var textBox = new bmp(0, 397, imgList['textBox']);
+	textBox.x = rCenterWidth(textBox);
+	showLayer.addChild(textBox);
+	//textBox
+	//logo
+	var redWord = new bmp(0, 434, imgList['redWord']);
+	redWord.x = rCenterWidth(redWord);
+	redWord.alpha = 0;
+	showLayer.addChild(redWord);
+	//打开红包
+	var money = rBmp(imgList['money']);
+	money.x = rCenterWidth(money);
+	money.y = 1186;
+	showLayer.addChild(money);
+	
+	LTweenLite.to(showLayer,1.0,{alpha:1,onComplete:function(){
+		LTweenLite.to(redWord,1.0,{alpha:1,onComplete:function(){
+		
+		}});
+	}});
+//	getRed();
+	open.addEventListener(LMouseEvent.MOUSE_DOWN,function(){
+		open.removeEventListener(LMouseEvent.MOUSE_DOWN);
+		LTweenLite.to(money,0.25,{rotate:360,loop:true,onComplete:function(){
+			money.rotate = 0;
+		}});
+		setTimeout(function(){
+			$.get('json/money.json', function(data) {
+				if(data.num == 2) {
+					$('#img').show();
+					$('#img').animate({'opacity':1},500);
+					return false;	
+				}
+			});
+			$.get('json/money.json', function(data) {
+				if(data.status == true) {
+					getRed();
+				} else {
+					open.visible = false;
+					money.visible = false;
+					redBox.visible = false;
+					textBox.visible = false;
+					redWord.visible = false;
+					var num = parseInt(Math.random()*5)+1;
+					var happiness = new bmp(0, 378, imgList['happiness'+num]);
+					happiness.x = rCenterWidth(happiness);
+					happiness.alpha = 0;
+					showLayer.addChild(happiness);
+					LTweenLite.to(happiness, 1.0, {
+						alpha: 1
+					});
+					var tryLayer = new LSprite();
+					tryLayer.graphics.drawRect(0, "#ff0000", [234, 1585, 611, 120], true, "rgba(0,0,0,0)");
+					showLayer.addChild(tryLayer);
+					tryLayer.addEventListener(LMouseEvent.MOUSE_DOWN, function() {
+						showLayer.removeAllChild();
+						showLayer.die();
+						showRed();
+					});
+				}
+			});
+		},500);
+		
+	});
+	//打开红包
+
+	
+
+}
+//获得红包页面
+function getRed(){
+	var getLayer = new LSprite();
+	getLayer.graphics.drawRect(0, "#ff0000", [0,0,LGlobal.width, LGlobal.height],true,"rgba(0,0,0,0.5)");
+	getLayer.addEventListener(LMouseEvent.MOUSE_DOWN,setNull);
+	//
+	var wordLayer = new LSprite();
+	wordLayer.graphics.drawRect(0, "#ff0000", [0,0,LGlobal.width, LGlobal.height],true,"rgba(0,0,0,0.5)");
+	getLayer.addChild(wordLayer);
+	//红包背景
+	var getRed = new bmp(0, 300, imgList['getRed']);
+	getRed.x = rCenterWidth(getRed);
+	wordLayer.addChild(getRed);
+	//打开红包
+	var star = new bmp(0, 67, imgList['star']);
+	star.x = rCenterWidth(star);
+	getLayer.addChild(star);
+	star.bling(0.5,0.6,0.8,true);
+	backLayer.addChild(getLayer);
+	
+	var words = [];
+	words[0] = new setWrapText(0, 366,50,"恭喜老铁，", '#ffc223', false, 420, false, 48, 3, 'happy');
+	words[0].x = rCenterWidth(words[0]);
+	wordLayer.addChild(words[0]);
+	words[1] = new setWrapText(0, 438,50,"嘉力丰给你塞了个", '#ffc223', false, 420, false, 48, 3, 'happy');
+	words[1].x = rCenterWidth(words[1]);
+	wordLayer.addChild(words[1]);
+	
+	//请求获得数据
+	$.get('json/money.json',function(data){
+		words[2] = new setWrapText(0, 518,50,data.money+"元的红包！", '#ffc223', false, 420, false, 48, 3, 'happy');
+		words[2].x = rCenterWidth(words[2]);
+		wordLayer.addChild(words[2]);
+		words[3] = new setWrapText(0, 1060,240,data.money+"元", '#ffc223', false, 420, false, 48, 3, 'zcool');
+		setTimeout(function(){
+			words[3].x = rCenterWidth(words[3]);
+		},100);
+		wordLayer.addChild(words[3]);
+		var x1 = wordLayer.x;
+		var y1 = wordLayer.y;
+		wordLayer.scaleX = 1.5;
+		wordLayer.scaleY = 1.5;
+		wordLayer.x = rCenterWidth(wordLayer);
+		wordLayer.y = rCenterHeight(wordLayer);
+		var x12 = wordLayer.x;
+		var y12 = wordLayer.y;
+		wordLayer.scaleX = 0.1;
+		wordLayer.scaleY = 0.1;
+		wordLayer.x = rCenterWidth(wordLayer);
+		wordLayer.y = rCenterHeight(wordLayer);
+		LTweenLite.to(wordLayer,0.2,{scaleX:1.5,scaleY:1.5,x:x12,y:y12}).to(wordLayer,0.1,{scaleX:1,scaleY:1,x:x1,y:y1});
+		var now = new btn(0, 1480, imgList['now']);
+		now.x = rCenterWidth(now);
+		wordLayer.addChild(now);
+		now.addEventListener(LMouseEvent.MOUSE_DOWN,function(){
+			now.removeEventListener(LMouseEvent.MOUSE_DOWN);
+			$('#img').show();
+			$('#img').animate({'opacity':1},500);
+		});
+	})
+	//logo
+	var logo = new bmp(0, 1825, imgList['logo']);
+	logo.x = rCenterWidth(logo);
+	logo.bigAndSmall(2, 2, 2, 0.02, 0, true);
+	getLayer.addChild(logo);
 }

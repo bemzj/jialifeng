@@ -50,6 +50,24 @@ var gameImg = [
 	{path:'img/btn01.png',type:'img',name:'btn01'},//按钮01
 	{path:'img/btn02.png',type:'img',name:'btn02'},//按钮02
 	{path:'img/btn03.png',type:'img',name:'btn03'},//按钮03
+	{path:'img/rice.png',type:'img',name:'rice'},//米粉
+	{path:'img/red.jpg',type:'img',name:'red'},//红包背面
+	{path:'img/littleSky.png',type:'img',name:'littleSky'},//小云
+	{path:'img/open.png',type:'img',name:'open'},//打开
+	{path:'img/redWord.png',type:'img',name:'redWord'},//话
+	{path:'img/money.png',type:'img',name:'money'},//钱
+	{path:'img/getRed.png',type:'img',name:'getRed'},//红包
+	{path:'img/star.png',type:'img',name:'star'},//星星
+	{path:'img/happiness1.png',type:'img',name:'happiness1'},//祝福语
+	{path:'img/happiness2.png',type:'img',name:'happiness2'},//祝福语
+	{path:'img/happiness3.png',type:'img',name:'happiness3'},//祝福语
+	{path:'img/happiness4.png',type:'img',name:'happiness4'},//祝福语
+	{path:'img/happiness5.png',type:'img',name:'happiness5'},//祝福语
+	{path:'img/redBox.png',type:'img',name:'redBox'},//红包
+	{path:'img/textBox.png',type:'img',name:'textBox'},//字体背景
+	{path:'img/share.png',type:'img',name:'share'},//分享
+	{path:'img/now.png',type:'img',name:'now'},//赶快收下
+	{path:'img/hand.png',type:'img',name:'hand'},//手
 ];
 //全局变量
 var backLayer,musicLayer,imgList,choiceType=0;
@@ -83,7 +101,7 @@ function answer(x,y,answer){
 	self.x = x;
 	self.y = y;
 	self.addChild(self.bmp);
-	self.word = new setText(0,47,50,answer,"#440404");
+	self.word = new setWrapText(0, 47,50,answer, '#440404', false, 420, false, 48, 3, 'happy');
 	self.word.x = (self.bmp.getWidth()-self.word.getWidth())/2;
 	self.addChild(self.word);
 }
@@ -97,7 +115,13 @@ function reels(question){
 	self.word = new setWrapText(0, 63,42,question, '#440404', false, 420, false, 48, 3, 'happy');
 	self.word.x = (self.bmp.getWidth()-self.word.getWidth())/2;
 	self.addChild(self.word);
+	self.word.alpha = 0;
 }
+reels.prototype.show=function(time,delay){
+	var self = this;
+	LTweenLite.to(self.word,time,{alpha:1,delay:delay});
+}
+
 function reelsv(x,y,question){
 	base(this,LSprite,[]);
 	var self = this;
@@ -106,7 +130,7 @@ function reelsv(x,y,question){
 	self.y = y;
 	self.addChild(self.bmp);
 	console.log(question.length);
-	if(question.length<=13)
+	if(question.length<14)
 	{
 		self.word = new setWrapText(90, 0,59,question, '#440404', false, 42, true, 70, 3, 'happy');
 		self.word.y = (self.bmp.getHeight()-self.word.getHeight())/2+36;
@@ -114,7 +138,10 @@ function reelsv(x,y,question){
 		self.word = new setWrapText(100, 0,46,question, '#440404', false, 42, true, 52, 3, 'happy');
 		self.word.y = (self.bmp.getHeight()-self.word.getHeight())/2+26;
 	}
-	
-	
 	self.addChild(self.word);
+	self.word.alpha = 0;
+}
+reelsv.prototype.show=function(time,delay){
+	var self = this;
+	LTweenLite.to(self.word,time,{alpha:1,delay:delay});
 }

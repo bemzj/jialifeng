@@ -18,7 +18,7 @@
 	-webkit-align-items: center;
 	-webkit-justify-content: center;
 	-webkit-flex-direction: column;
-	display: none;
+	/*display: none;*/
 }
 #loading img{
 	width: 100%;
