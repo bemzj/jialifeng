@@ -62,7 +62,7 @@ function musicBtn(x,y,sx,sy,name,musicId){
 		}
 	});
 }
-function rBmp(name){
+function rBmp (name){
 	return new LBitmap(new LBitmapData(name));
 }
 /////////////////////////////////图片类-换行/////////////////////////////////
