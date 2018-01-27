@@ -112,7 +112,7 @@ function homepage(){
 		ease: LEasing.None.easeIn(),
 		delay: delay
 	});
-	var title02 = rBmp(imgList['title02']); //318
+	var title02 = rBmp(imgList['title04']); //318
 	title02.y = 80;
 	title02.x = -title02.getWidth();
 	title02.rotateCenter = true;
@@ -123,7 +123,7 @@ function homepage(){
 		ease: LEasing.None.easeIn(),
 		delay: delay
 	});
-	var title03 = rBmp(imgList['title03']); //548
+	var title03 = rBmp(imgList['title02']); //548
 	title03.y = 80;
 	title03.x = 1077;
 	title03.rotateCenter = true;
@@ -134,7 +134,7 @@ function homepage(){
 		ease: LEasing.None.easeIn(),
 		delay: delay
 	});
-	var title04 = rBmp(imgList['title04']); //778
+	var title04 = rBmp(imgList['title03']); //778
 	title04.y = 80;
 	title04.x = 1307;
 	title04.rotateCenter = true;
@@ -830,15 +830,15 @@ function couplet(){
 					LTweenLite.to(word,0.5,{alpha:0,onComplete:function(){
 						$('.er').show().animate({'opacity':1},500);
 						LTweenLite.to(btn03,0.5,{alpha:1});
-						LTweenLite.to(reel01,0.5,{alpha:1});
+						LTweenLite.to(reel01,0.2,{alpha:1});
 						LTweenLite.to(reel02,0.5,{alpha:1});
 						LTweenLite.to(reel03,0.5,{alpha:1,onComplete:function(){
 //							LTweenLite.remove(tween);
 //							LTweenLite.pauseAll ();
 							brushTween.pause();
-							reel01.show(1.0,2);
-							reel02.show(1.0,0);
-							reel03.show(1.0,1);
+							reel01.show(0.5,1.0);
+							reel02.show(0.5,0);
+							reel03.show(0.5,0.5);
 							setTimeout(function(){
 								var rice = new bmp(358,780,imgList['rice']);
 								cLayer.addChild(rice);
