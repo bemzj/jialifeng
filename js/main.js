@@ -28,10 +28,10 @@ function startGame(result){
 //		homepage();
 //		select();
 //		problem();
-//		couplet();
+		couplet();
 //		showRed();
 //	},2500);
-	showRed();
+//	showRed();
 
 }
 //首页
@@ -942,7 +942,6 @@ function couplet(){
 	var reel03= new reelsv(700,488,title[2]);
 	reel03.alpha = 0;
 	cLayer.addChild(reel03);
-	
 	
 }
 //显示红包
