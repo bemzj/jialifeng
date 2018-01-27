@@ -22,15 +22,17 @@ function loadProgress(pre){
 //游戏开始
 function startGame(result){
 	imgList=result;
-	
-	setTimeout(function(){
-		$('#loading').fadeOut(500);
-		homepage();
-	},2500);
-//	select();
-//	problem();
-// couplet();
-// showRed();
+	$('#loading').hide();
+//	setTimeout(function(){
+//		$('#loading').fadeOut(500);
+//		homepage();
+//		select();
+//		problem();
+//		couplet();
+//		showRed();
+//	},2500);
+	showRed();
+
 }
 //首页
 function homepage(){
@@ -826,7 +828,7 @@ function couplet(){
 					hand.remove();
 					handTween.pause();
 					LTweenLite.to(word,0.5,{alpha:0,onComplete:function(){
-						LTweenLite.to(er,0.5,{alpha:1});
+						$('.er').show().animate({'opacity':1},500);
 						LTweenLite.to(btn03,0.5,{alpha:1});
 						LTweenLite.to(reel01,0.5,{alpha:1});
 						LTweenLite.to(reel02,0.5,{alpha:1});
@@ -854,14 +856,14 @@ function couplet(){
 								btn01.visible=false;
 								btn02.visible=false;
 								setTimeout(function(){
-									html2canvas(game, {
+									html2canvas(gameOut, {
 										onrendered: function(canvas) {
 											//添加属性
 											canvas.setAttribute('id', 'thecanvas');
 											//读取属性值
 											// var value= canvas.getAttribute('id');
 											document.getElementById('show').appendChild(canvas);
-											$('#img').attr("src", document.getElementById('thecanvas').toDataURL("image/png"));
+											$('#img').attr("src", document.getElementById('thecanvas').toDataURL("image/jpeg"));
 											btn01.visible=true;
 											btn02.visible=true;	
 											LTweenLite.to(btn01,0.5,{alpha:1});
@@ -875,6 +877,9 @@ function couplet(){
 							},3000);	
 							$('#getRed').show();
 							$('#getRed').on('touchstart',function(){
+								$('.er').show().animate({'opacity':0},1000,function(){
+									$(this).hide();
+								})
 								LTweenLite.to(cLayer, 1.0, {
 									alpha: 0,
 									onComplete: function() {
@@ -937,19 +942,7 @@ function couplet(){
 	var reel03= new reelsv(700,488,title[2]);
 	reel03.alpha = 0;
 	cLayer.addChild(reel03);
-	var loader = new LLoader();
-	var er;
-	loader.addEventListener(LEvent.COMPLETE, function(event){
-		er = new LBitmap(new LBitmapData(event.target));		
-		er.scaleX = 132/er.getWidth();
-		er.scaleY = 132/er.getHeight();
-		er.x = 777;
-		er.y = 1606;
-		er.alpha = 0;		
-		cLayer.addChild(er);
-		
-    });
-    loader.load('img/er.png?v=0', "bitmapData");
+	
 	
 }
 //显示红包
