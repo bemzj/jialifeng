@@ -26,9 +26,9 @@ function startGame(result){
 //	setTimeout(function(){
 //		$('#loading').fadeOut(500);
 //		homepage();
-//		select();
+		select();
 //		problem();
-		couplet();
+//		couplet();
 //		showRed();
 //	},2500);
 //	showRed();
@@ -512,7 +512,13 @@ function select(){
 //问题
 function problem(){
 	//选择层	
-	var randow  = choiceType*2+Math.round(Math.random());
+	if(Math.random()>=0.5)
+	{
+		var randow  = choiceType*2;
+	}else{
+		var randow  = choiceType*2+1;
+	}
+	
 	var proLayer = new LSprite();
 	backLayer.addChild(proLayer);
 	proLayer.alpha = 0;
@@ -836,9 +842,9 @@ function couplet(){
 //							LTweenLite.remove(tween);
 //							LTweenLite.pauseAll ();
 							brushTween.pause();
-							reel01.show(0.5,1.0);
-							reel02.show(0.5,0);
-							reel03.show(0.5,0.5);
+							reel01.show(1.5,2.0);
+							reel02.show(1.5,0);
+							reel03.show(1.5,1);
 							setTimeout(function(){
 								var rice = new bmp(358,780,imgList['rice']);
 								cLayer.addChild(rice);
@@ -1116,12 +1122,18 @@ function getRed(){
 		wordLayer.y = rCenterHeight(wordLayer);
 		LTweenLite.to(wordLayer,0.2,{scaleX:1.5,scaleY:1.5,x:x12,y:y12}).to(wordLayer,0.1,{scaleX:1,scaleY:1,x:x1,y:y1});
 		var now = new btn(0, 1480, imgList['now']);
-		now.x = rCenterWidth(now);
+		now.x = 158;
 		wordLayer.addChild(now);
 		now.addEventListener(LMouseEvent.MOUSE_DOWN,function(){
 			now.removeEventListener(LMouseEvent.MOUSE_DOWN);
 			$('#img').show();
 			$('#img').animate({'opacity':1},500);
+		});
+		var share = new btn(0, 1480, imgList['share']);
+		share.x = 556;
+		wordLayer.addChild(share);
+		share.addEventListener(LMouseEvent.MOUSE_DOWN,function(){
+			window.location.href = 'share.html';
 		});
 	})
 	//logo
