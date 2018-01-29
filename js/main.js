@@ -408,7 +408,7 @@ function select(){
 																selectLayer.remove();
 															}
 														});
-														problem();
+														problem(0,0,1);
 													}
 												});
 												choiceLayer[1] = new LSprite();
@@ -425,7 +425,7 @@ function select(){
 																selectLayer.remove();
 															}
 														});
-														problem();
+														problem(0,0,1);
 													}
 												});
 												choiceLayer[2] = new LSprite();
@@ -442,7 +442,7 @@ function select(){
 																selectLayer.remove();
 															}
 														});
-														problem();
+														problem(0,0,1);
 													}
 												});
 												choiceLayer[3] = new LSprite();
@@ -459,7 +459,7 @@ function select(){
 																selectLayer.remove();
 															}
 														});
-														problem();
+														problem(0,0,1);
 													}
 												});
 											},500);
@@ -510,19 +510,13 @@ function select(){
 	
 }
 //问题
-function problem(){
+function problem(randow,sort,time){
 	//选择层	
-	if(Math.random()>=0.5)
-	{
-		var randow  = choiceType*2;
-	}else{
-		var randow  = choiceType*2+1;
-	}
 	
 	var proLayer = new LSprite();
 	backLayer.addChild(proLayer);
 	proLayer.alpha = 0;
-	var qst = new question(168.5,1003,questions[randow]);
+	var qst = new question(168.5,1003,questions[choiceType*2+randow]);
 	qst.alpha = 0;
 	proLayer.addChild(qst);
 	LTweenLite.to(proLayer,1.0,{alpha:1.0,onComplete:function(){
@@ -644,30 +638,165 @@ function problem(){
 									an[0].graphics.drawRect(0, "#ff0000", [223,1255,633,144],false,"rgba(0,0,0,0.5)");
 									an[0].addEventListener(LMouseEvent.MOUSE_DOWN,function(){
 										an[0].removeEventListener(LMouseEvent.MOUSE_DOWN);
-										LTweenLite.to(proLayer,1.0,{alpha:0,onComplete:function(){
-											proLayer.remove();
-										}});
-										couplet();
+										if(sort==0)
+										{
+											qst.changeTitle(questions[choiceType*2+1])
+											proLayer.addChild(qst);
+											answers[0].remove();
+											answers[1].remove();
+											answers[2].remove();
+											answers[0] = new answer(223,1255,problem1[choiceType*2+1]);
+											answers[1] = new answer(223,1425,problem2[choiceType*2+1]);
+											answers[2] = new answer(223,1595,problem3[choiceType*2+1]);
+											answers[0].alpha = 0;
+											answers[1].alpha = 0;
+											answers[2].alpha = 0;
+											proLayer.addChild(answers[0]);
+											proLayer.addChild(answers[1]);
+											proLayer.addChild(answers[2]);
+											LTweenLite.to(answers[0],0.5,{delay:0.5,alpha:1,onComplete:function(){
+												LTweenLite.to(answers[1],0.5,{alpha:2,onComplete:function(){
+													LTweenLite.to(answers[2],0.5,{alpha:3,onComplete:function(){
+														an[0].graphics.drawRect(0, "#ff0000", [223,1255,633,144],false,"rgba(0,0,0,0.5)");
+														an[0].addEventListener(LMouseEvent.MOUSE_DOWN,function(){
+															LTweenLite.to(proLayer,1.0,{alpha:0,onComplete:function(){
+																proLayer.remove();
+															}});
+															couplet();
+														});
+														an[1].graphics.drawRect(0, "#ff0000", [223,1255,633,144],false,"rgba(0,0,0,0.5)");
+														an[1].addEventListener(LMouseEvent.MOUSE_DOWN,function(){
+															LTweenLite.to(proLayer,1.0,{alpha:0,onComplete:function(){
+																proLayer.remove();
+															}});
+															couplet();
+														});
+														an[2].graphics.drawRect(0, "#ff0000", [223,1255,633,144],false,"rgba(0,0,0,0.5)");
+														an[2].addEventListener(LMouseEvent.MOUSE_DOWN,function(){
+															LTweenLite.to(proLayer,1.0,{alpha:0,onComplete:function(){
+																proLayer.remove();
+															}});
+															couplet();
+														});
+													}});
+												}});
+											}});
+										}else{
+											LTweenLite.to(proLayer,1.0,{alpha:0,onComplete:function(){
+												proLayer.remove();
+											}});
+											couplet();
+										}
+										
 									});
 									proLayer.addChild(an[0]);
 									an[1].graphics.drawRect(0, "#ff0000", [223,1425,633,144],false,"rgba(0,0,0,0.5)");
 									an[1].addEventListener(LMouseEvent.MOUSE_DOWN,function(){
 										an[1].removeEventListener(LMouseEvent.MOUSE_DOWN);
-										LTweenLite.to(proLayer,1.0,{alpha:0,onComplete:function(){
-											proLayer.remove();
-										}});
-										couplet();
+										if(sort==0)
+										{
+											qst.changeTitle(questions[choiceType*2+1])
+											proLayer.addChild(qst);
+											answers[0].remove();
+											answers[1].remove();
+											answers[2].remove();
+											answers[0] = new answer(223,1255,problem1[choiceType*2+1]);
+											answers[1] = new answer(223,1425,problem2[choiceType*2+1]);
+											answers[2] = new answer(223,1595,problem3[choiceType*2+1]);
+											answers[0].alpha = 0;
+											answers[1].alpha = 0;
+											answers[2].alpha = 0;
+											proLayer.addChild(answers[0]);
+											proLayer.addChild(answers[1]);
+											proLayer.addChild(answers[2]);
+											LTweenLite.to(answers[0],0.5,{delay:0.5,alpha:1,onComplete:function(){
+												LTweenLite.to(answers[1],0.5,{alpha:2,onComplete:function(){
+													LTweenLite.to(answers[2],0.5,{alpha:3,onComplete:function(){
+														an[0].graphics.drawRect(0, "#ff0000", [223,1255,633,144],false,"rgba(0,0,0,0.5)");
+														an[0].addEventListener(LMouseEvent.MOUSE_DOWN,function(){
+															LTweenLite.to(proLayer,1.0,{alpha:0,onComplete:function(){
+																proLayer.remove();
+															}});
+															couplet();
+														});
+														an[1].graphics.drawRect(0, "#ff0000", [223,1255,633,144],false,"rgba(0,0,0,0.5)");
+														an[1].addEventListener(LMouseEvent.MOUSE_DOWN,function(){
+															LTweenLite.to(proLayer,1.0,{alpha:0,onComplete:function(){
+																proLayer.remove();
+															}});
+															couplet();
+														});
+														an[2].graphics.drawRect(0, "#ff0000", [223,1255,633,144],false,"rgba(0,0,0,0.5)");
+														an[2].addEventListener(LMouseEvent.MOUSE_DOWN,function(){
+															LTweenLite.to(proLayer,1.0,{alpha:0,onComplete:function(){
+																proLayer.remove();
+															}});
+															couplet();
+														});
+													}});
+												}});
+											}});
+										}else{
+											LTweenLite.to(proLayer,1.0,{alpha:0,onComplete:function(){
+												proLayer.remove();
+											}});
+											couplet();
+										}
 									});
 									proLayer.addChild(an[1]);
 									an[2].graphics.drawRect(0, "#ff0000", [223,1595,633,144],false,"rgba(0,0,0,0.5)");
 									proLayer.addChild(an[2]);
 									an[2].addEventListener(LMouseEvent.MOUSE_DOWN,function(){
 										an[2].removeEventListener(LMouseEvent.MOUSE_DOWN);
-										LTweenLite.to(proLayer,1.0,{alpha:0,onComplete:function(){
-											proLayer.remove();
-											
-										}});
-										couplet();
+										if(sort==0)
+										{
+											qst.changeTitle(questions[choiceType*2+1])
+											proLayer.addChild(qst);
+											answers[0].remove();
+											answers[1].remove();
+											answers[2].remove();
+											answers[0] = new answer(223,1255,problem1[choiceType*2+1]);
+											answers[1] = new answer(223,1425,problem2[choiceType*2+1]);
+											answers[2] = new answer(223,1595,problem3[choiceType*2+1]);
+											answers[0].alpha = 0;
+											answers[1].alpha = 0;
+											answers[2].alpha = 0;
+											proLayer.addChild(answers[0]);
+											proLayer.addChild(answers[1]);
+											proLayer.addChild(answers[2]);
+											LTweenLite.to(answers[0],0.5,{delay:0.5,alpha:1,onComplete:function(){
+												LTweenLite.to(answers[1],0.5,{alpha:2,onComplete:function(){
+													LTweenLite.to(answers[2],0.5,{alpha:3,onComplete:function(){
+														an[0].graphics.drawRect(0, "#ff0000", [223,1255,633,144],false,"rgba(0,0,0,0.5)");
+														an[0].addEventListener(LMouseEvent.MOUSE_DOWN,function(){
+															LTweenLite.to(proLayer,1.0,{alpha:0,onComplete:function(){
+																proLayer.remove();
+															}});
+															couplet();
+														});
+														an[1].graphics.drawRect(0, "#ff0000", [223,1255,633,144],false,"rgba(0,0,0,0.5)");
+														an[1].addEventListener(LMouseEvent.MOUSE_DOWN,function(){
+															LTweenLite.to(proLayer,1.0,{alpha:0,onComplete:function(){
+																proLayer.remove();
+															}});
+															couplet();
+														});
+														an[2].graphics.drawRect(0, "#ff0000", [223,1255,633,144],false,"rgba(0,0,0,0.5)");
+														an[2].addEventListener(LMouseEvent.MOUSE_DOWN,function(){
+															LTweenLite.to(proLayer,1.0,{alpha:0,onComplete:function(){
+																proLayer.remove();
+															}});
+															couplet();
+														});
+													}});
+												}});
+											}});
+										}else{
+											LTweenLite.to(proLayer,1.0,{alpha:0,onComplete:function(){
+												proLayer.remove();
+											}});
+											couplet();
+										}
 									});
 								}});
 							}});
@@ -724,9 +853,9 @@ function problem(){
 	proLayer.addChild(word);
 	
 	var answers = [];
-	answers[0] = new answer(223,1255,problem1[randow]);
-	answers[1] = new answer(223,1425,problem2[randow]);
-	answers[2] = new answer(223,1595,problem3[randow]);
+	answers[0] = new answer(223,1255,problem1[choiceType*2+randow]);
+	answers[1] = new answer(223,1425,problem2[choiceType*2+randow]);
+	answers[2] = new answer(223,1595,problem3[choiceType*2+randow]);
 	answers[0].alpha = 0;
 	answers[1].alpha = 0;
 	answers[2].alpha = 0;
@@ -1126,8 +1255,18 @@ function getRed(){
 		wordLayer.addChild(now);
 		now.addEventListener(LMouseEvent.MOUSE_DOWN,function(){
 			now.removeEventListener(LMouseEvent.MOUSE_DOWN);
-			$('#img').show();
-			$('#img').animate({'opacity':1},500);
+				var popLayer = new LSprite();
+				popLayer.graphics.drawRect(0, "#ff0000", [0,0,LGlobal.width, LGlobal.height],true,"rgba(0,0,0,0.5)");
+				getLayer.addChild(popLayer);
+				var pop = new bmp(0, 1825, imgList['pop']);
+				pop.x = rCenterWidth(pop);
+				pop.y = rCenterHeight(pop);
+				popLayer.addChild(pop);
+				popLayer.addEventListener(LMouseEvent.MOUSE_DOWN,function(){
+					popLayer.remove();
+				});
+//			$('#img').show();
+//			$('#img').animate({'opacity':1},500);
 		});
 		var share = new btn(0, 1480, imgList['share']);
 		share.x = 556;

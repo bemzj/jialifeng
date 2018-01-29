@@ -68,6 +68,7 @@ var gameImg = [
 	{path:'img/share.png',type:'img',name:'share'},//分享
 	{path:'img/now.png',type:'img',name:'now'},//赶快收下
 	{path:'img/hand.png',type:'img',name:'hand'},//手
+	{path:'img/pop.jpg',type:'img',name:'pop'},//弹窗
 ];
 //全局变量
 var backLayer,musicLayer,imgList,choiceType=0;
@@ -79,20 +80,70 @@ function question(x,y,question){
 	self.y = y;
 	self.addChild(self.bmp);
 	if(question.length<=12)
-	{
-		self.word = new setWrapText(0, 89,50,question, '#440404', false, 420, false, 48, 3, 'happy')
-		self.word.x = (self.bmp.getWidth()-self.word.getWidth())/2;
-		self.addChild(self.word);
-	}else{
-		var length = Math.ceil(question.length/2);
-		self.word1 = new setWrapText(0,50,50,question.substr(0,length),"#440404", false, 420, false, 48, 3, 'happy');
-		self.word1.x = (self.bmp.getWidth()-self.word1.getWidth())/2;
-		self.addChild(self.word1);
-		self.word2 = new setWrapText(0,130,50,question.substr(length),"#440404", false, 420, false, 48, 3, 'happy');
-		self.word2.x = (self.bmp.getWidth()-self.word2.getWidth())/2;
-		self.addChild(self.word2);
-	}
+		{
+			self.word = new setWrapText(0, 89,50,question, '#440404', false, 420, false, 48, 3, 'happy')
+			self.word.x = (self.bmp.getWidth()-self.word.getWidth())/2;
+			self.addChild(self.word);
+		}else{
+			var length = Math.ceil(question.length/2);
+			self.word1 = new setWrapText(0,50,50,question.substr(0,length),"#440404", false, 420, false, 48, 3, 'happy');
+			self.word1.x = (self.bmp.getWidth()-self.word1.getWidth())/2;
+			self.addChild(self.word1);
+			self.word2 = new setWrapText(0,130,50,question.substr(length),"#440404", false, 420, false, 48, 3, 'happy');
+			self.word2.x = (self.bmp.getWidth()-self.word2.getWidth())/2;
+			self.addChild(self.word2);
+		}
 
+}
+question.prototype.changeTitle=function(questions){
+	var self = this;
+	if(self.word!=UNDEFINED)
+	{
+		self.word.remove();
+		if(questions.length<=12)
+		{
+			self.word = new setWrapText(0, 89,50,questions, '#440404', false, 420, false, 48, 3, 'happy')
+			self.word.x = (self.bmp.getWidth()-self.word.getWidth())/2;
+			self.addChild(self.word);
+			self.word.alpha=0;
+			LTweenLite.to(self.word,0.5,{alpha:1});
+		}else{
+			var length = Math.ceil(questions.length/2);
+			self.word1 = new setWrapText(0,50,50,questions.substr(0,length),"#440404", false, 420, false, 48, 3, 'happy');
+			self.word1.x = (self.bmp.getWidth()-self.word1.getWidth())/2;
+			self.addChild(self.word1);
+			self.word2 = new setWrapText(0,130,50,questions.substr(length),"#440404", false, 420, false, 48, 3, 'happy');
+			self.word2.x = (self.bmp.getWidth()-self.word2.getWidth())/2;
+			self.addChild(self.word2);
+			self.word1.alpha=0;
+			LTweenLite.to(self.word1,0.5,{alpha:1});
+			self.word2.alpha=0;
+			LTweenLite.to(self.word2,0.5,{alpha:1});
+		}
+	}else{
+		self.word1.remove();
+		self.word2.remove();
+		if(questions.length<=12)
+		{
+			self.word = new setWrapText(0, 89,50,questions, '#440404', false, 420, false, 48, 3, 'happy')
+			self.word.x = (self.bmp.getWidth()-self.word.getWidth())/2;
+			self.addChild(self.word);
+			self.word.alpha=0;
+			LTweenLite.to(self.word,0.5,{alpha:1});
+		}else{
+			var length = Math.ceil(questions.length/2);
+			self.word1 = new setWrapText(0,50,50,questions.substr(0,length),"#440404", false, 420, false, 48, 3, 'happy');
+			self.word1.x = (self.bmp.getWidth()-self.word1.getWidth())/2;
+			self.addChild(self.word1);
+			self.word2 = new setWrapText(0,130,50,questions.substr(length),"#440404", false, 420, false, 48, 3, 'happy');
+			self.word2.x = (self.bmp.getWidth()-self.word2.getWidth())/2;
+			self.addChild(self.word2);
+			self.word1.alpha=0;
+			LTweenLite.to(self.word1,0.5,{alpha:1});
+			self.word2.alpha=0;
+			LTweenLite.to(self.word2,0.5,{alpha:1});
+		}
+	}
 }
 function answer(x,y,answer){
 	base(this,LSprite,[]);
