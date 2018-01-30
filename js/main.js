@@ -15,14 +15,14 @@ function main(){
 function startGame(result){
 	imgList=result;
 	$('#loading').hide();
-	select();
+//	select();
 //	setTimeout(function(){
 //		$('#loading').hide();
 //		$('#loading').fadeOut(500);
 //		homepage();
 //		select();
 //		problem();
-//		couplet();
+		couplet();
 //		showRed();
 //	},3000);
 //	showRed();
@@ -1067,6 +1067,7 @@ function couplet(){
 	var reel02 = new reelsv(130,488,title[1]);
 	reel02.alpha = 0;
 	cLayer.addChild(reel02);
+	reel01.y = reel02.y-20-reel01.getHeight();
 	var reel03= new reelsv(700,488,title[2]);
 	reel03.alpha = 0;
 	cLayer.addChild(reel03);
