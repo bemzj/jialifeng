@@ -160,10 +160,11 @@ function reels(question){
 	base(this,LSprite,[]);
 	var self = this;
 	self.bmp = rBmp(imgList['reel01']);
-	self.x = 343;
+	self.bmp.scaleX = 1.2;
+	self.x = 305.2;
 	self.y = 305;
 	self.addChild(self.bmp);
-	self.word = new setWrapText(0, 63,42,question, '#440404', false, 420, false, 48, 3, 'happy');
+	self.word = new setWrapText(0, 63,52,question, '#440404', false, 420, false, 48, 3, 'happy');
 	self.word.x = (self.bmp.getWidth()-self.word.getWidth())/2;
 	self.addChild(self.word);
 	self.word.alpha = 0;
@@ -179,12 +180,17 @@ function reelsv(x,y,question){
 	self.bmp = rBmp(imgList['reel02']);
 	self.x = x;
 	self.y = y;
+	var h = self.bmp.getHeight();
+	
 	self.addChild(self.bmp);
-	console.log(question.length);
 	if(question.length<14)
 	{
 		self.word = new setWrapText(90, 0,59,question, '#440404', false, 42, true, 70, 3, 'happy');
-		self.word.y = (self.bmp.getHeight()-self.word.getHeight())/2+36;
+		self.bmp.scaleY = (self.word.getHeight()+120)/self.bmp.getHeight();
+		console.log(self.bmp.getHeight());
+		self.y += ((h- self.bmp.getHeight())/2);
+		self.word.y = 96;
+		
 	}else{
 		self.word = new setWrapText(100, 0,46,question, '#440404', false, 42, true, 52, 3, 'happy');
 		self.word.y = (self.bmp.getHeight()-self.word.getHeight())/2+26;

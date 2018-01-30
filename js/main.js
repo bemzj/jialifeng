@@ -14,18 +14,18 @@ function main(){
 //游戏开始
 function startGame(result){
 	imgList=result;
-	
-	setTimeout(function(){
-		$('#loading').hide();
+	$('#loading').hide();
+	select();
+//	setTimeout(function(){
+//		$('#loading').hide();
 //		$('#loading').fadeOut(500);
 //		homepage();
 //		select();
 //		problem();
 //		couplet();
-		showRed();
-	},3000);
+//		showRed();
+//	},3000);
 //	showRed();
-
 }
 //首页
 function homepage(){
@@ -1039,13 +1039,13 @@ function couplet(){
 			title[1] = whiteUp[index];
 			title[2] = whiteDown[index];
 			break;
-		case 2:
+		case 3:
 			var index = parseInt(studentUp.length*Math.random());
 			title[0] = studentMiddle[index];
 			title[1] = studentUp[index];
 			title[2] = studentDown[index];
 			break;
-		case 3:
+		case 2:
 			var index = parseInt(wageUp.length*Math.random());
 			title[0] = wageMiddle[index];
 			title[1] = wageUp[index];
