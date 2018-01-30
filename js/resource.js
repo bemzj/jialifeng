@@ -53,7 +53,7 @@ var gameImg = [
 	{path:'img/rice.png',type:'img',name:'rice'},//米粉
 	{path:'img/red.jpg',type:'img',name:'red'},//红包背面
 	{path:'img/littleSky.png',type:'img',name:'littleSky'},//小云
-	{path:'img/open.png',type:'img',name:'open'},//打开
+//	{path:'img/open.png',type:'img',name:'open'},//打开
 	{path:'img/redWord.png',type:'img',name:'redWord'},//话
 	{path:'img/money.png',type:'img',name:'money'},//钱
 	{path:'img/getRed.png',type:'img',name:'getRed'},//红包

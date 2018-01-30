@@ -9,28 +9,21 @@ function main(){
     addChild(backLayer);//添加背景层到游戏环境中
     musicLayer = new LSprite();//创建音乐层
     addChild(musicLayer);//添加背景层到游戏环境中
-    LLoadManage.load(loadImg,'',loadImging);
-}
-//预加载页面
-function loadImging(result){
-	LLoadManage.load(gameImg,loadProgress,startGame);
-}
-//加载函数
-function loadProgress(pre){
-	console.log(pre);
+    LLoadManage.load(gameImg,'',startGame);
 }
 //游戏开始
 function startGame(result){
 	imgList=result;
-	$('#loading').hide();
-//	setTimeout(function(){
+	
+	setTimeout(function(){
+		$('#loading').hide();
 //		$('#loading').fadeOut(500);
 //		homepage();
-		select();
+//		select();
 //		problem();
 //		couplet();
-//		showRed();
-//	},2500);
+		showRed();
+	},3000);
 //	showRed();
 
 }
@@ -262,7 +255,7 @@ function select(){
 	var selectLayer = new LSprite();
 	backLayer.addChild(selectLayer);
 	selectLayer.alpha = 0;
-	LTweenLite.to(selectLayer,1.0,{alpha:1.0,onComplete:function(){
+	LTweenLite.to(selectLayer,0.5,{alpha:1.0,onComplete:function(){
 		var choice01 = rBmp(imgList['choice01']); //548
 		choice01.y = 88;
 		choice01.x = 148;
@@ -306,7 +299,7 @@ function select(){
 		};
 		tm3.startTransition(tp3);
 		setTimeout(function(){
-			var tTime = 0.8;
+			var tTime = 0.5;
 			LTweenLite.to(choice01, tTime, {
 				y: 78,
 				ease: LEasing.None.easeIn(),
@@ -331,8 +324,8 @@ function select(){
 				y: 88,
 				ease: LEasing.None.easeIn()
 			});
-			LTweenLite.to(word,1.0,{alpha:1,onComplete:function() {
-				var htime = 0.5;
+			LTweenLite.to(word,0.5,{alpha:1,onComplete:function() {
+				var htime = 0.25;
 				LTweenLite.to(head[0],htime,{alpha:1,onComplete:function(){
 					texts[0] = new bmp(282,503,imgList['select01']);
 					selectLayer.addChild(texts[0]);
@@ -1120,12 +1113,6 @@ function showRed(){
 	logo.x = rCenterWidth(logo);
 	logo.bigAndSmall(2, 2, 2, 0.02, 0, true);
 	showLayer.addChild(logo);
-	
-	//打开红包
-	var open = new btn(0, 1595, imgList['open']);
-	open.x = rCenterWidth(open);
-	open.bigAndSmall(2, 2, 2, 0.02, 0, true);
-	showLayer.addChild(open);
 	//打开红包
 	var redBox = new bmp(0, 690, imgList['redBox']);
 	redBox.x = rCenterWidth(redBox);
@@ -1133,23 +1120,34 @@ function showRed(){
 	var textBox = new bmp(0, 397, imgList['textBox']);
 	textBox.x = rCenterWidth(textBox);
 	showLayer.addChild(textBox);
+	//打开红包
+	var money = rBmp(imgList['money']);
+	money.x = rCenterWidth(money);
+	money.y = 1186;
+	showLayer.addChild(money);
+	//打开红包
+	var open = new LSprite();
+	open.graphics.drawRect(0, "#ff0000", [0,690,redBox.getWidth(), redBox.getHeight()],false,"rgba(0,0,0,0.5)");
+	open.x = rCenterWidth(open);
+	showLayer.addChild(open);
+	
 	//textBox
 	//logo
 	var redWord = new bmp(0, 434, imgList['redWord']);
 	redWord.x = rCenterWidth(redWord);
 	redWord.alpha = 0;
 	showLayer.addChild(redWord);
-	//打开红包
-	var money = rBmp(imgList['money']);
-	money.x = rCenterWidth(money);
-	money.y = 1186;
-	showLayer.addChild(money);
+	
 	
 	LTweenLite.to(showLayer,1.0,{alpha:1,onComplete:function(){
 		LTweenLite.to(redWord,1.0,{alpha:1,onComplete:function(){
 		
 		}});
 	}});
+	//红包提示
+	var redTips = new setWrapText(0,1220+money.getHeight(),50,"打开红包试试手气", 'white', false, 420, false, 48, 3, 'happy');
+	redTips.x = rCenterWidth(redTips);
+	showLayer.addChild(redTips);
 //	getRed();
 	open.addEventListener(LMouseEvent.MOUSE_DOWN,function(){
 		open.removeEventListener(LMouseEvent.MOUSE_DOWN);
@@ -1194,8 +1192,7 @@ function showRed(){
 		},500);
 		
 	});
-	//打开红包
-
+	
 	
 
 }
