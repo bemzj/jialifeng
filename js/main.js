@@ -22,10 +22,140 @@ function startGame(result){
 //		homepage();
 //		select();
 //		problem();
-		couplet();
+		showCouplet();
+//		couplet();
 //		showRed();
 //	},3000);
 //	showRed();
+}
+//显示对联
+function showCouplet(){
+	$('.er').show();
+	//对联层
+	var sc = new LSprite();
+	sc.alpha = 0;
+	backLayer.addChild(sc);
+	//背景图片
+	var back = new bmp(0, 0, imgList['coupleShow']);
+	sc.addChild(back);
+	//logo
+	var logo = new bmp(0, 1825, imgList['logo']);
+	logo.x = rCenterWidth(logo);
+	logo.bigAndSmall(2, 2, 2, 0.05, 0, true);
+	sc.addChild(logo);
+	//云
+	var sky = new bmp(0, 152, imgList['bigSky']);
+	sky.x = rCenterWidth(sky);
+	sky.bigAndSmall(2, 2, 2, 0.02, 0, true);
+	sc.addChild(sky);
+	//长按保存
+	var btn01 = new bmp(152,1596,imgList['btn01']);
+	btn01.alpha = 0;
+	sc.addChild(btn01);
+	
+	//对联
+	var title = [];
+	switch(choiceType){
+		case 0:
+			var index = parseInt(businessUp.length*Math.random());
+			title[0] = businessMiddle[index];
+			title[1] = businessUp[index];
+			title[2] = businessDown[index];
+			break;
+		case 1:
+			var index = parseInt(whiteUp.length*Math.random());
+			title[0] = whiteMiddle[index];
+			title[1] = whiteUp[index];
+			title[2] = whiteDown[index];
+			break;
+		case 3:
+			var index = parseInt(studentUp.length*Math.random());
+			title[0] = studentMiddle[index];
+			title[1] = studentUp[index];
+			title[2] = studentDown[index];
+			break;
+		case 2:
+			var index = parseInt(wageUp.length*Math.random());
+			title[0] = wageMiddle[index];
+			title[1] = wageUp[index];
+			title[2] = wageDown[index];
+			break;
+	}
+	var reel01 = new reels(title[0]);
+	sc.addChild(reel01);
+	reel01.alpha = 0;
+	var reel03 = new reelsv(115,604,title[1]);
+	sc.addChild(reel03);
+	reel03.alpha = 0;
+	var reel02= new reelsv(816,604,title[2]);
+	sc.addChild(reel02);
+	reel02.alpha = 0;
+	LTweenLite.to(sc,1.0,{alpha:1,onComplete:function(){
+		LTweenLite.to(reel01,1.0,{alpha:1});
+		LTweenLite.to(reel02,1.0,{alpha:1});
+		LTweenLite.to(reel03,1.0,{alpha:1,onComplete:function(){
+			reel01.show(1.5,2.0);
+			reel02.show(1.5,0);
+			reel03.show(1.5,1);
+			setTimeout(function(){
+				//米粒
+				var rice = new bmp(358, 1140, imgList['rice']);
+				sc.addChild(rice);
+				var r1 = new LTransitionManager(rice);
+				var rm1 = {
+					type: LTransition.Fly,
+					startPoint: 6,
+					duration: 0.25,
+					direction: LTransition.IN,
+					easing: Strong.easeIn()
+				};
+				r1.startTransition(rm1);
+				setTimeout(function(){
+					$('#img').show();
+					$('#img').css('opacity', 0);
+					setTimeout(function() {
+						html2canvas(gameOut, {
+							onrendered: function(canvas) {
+								//添加属性
+								canvas.setAttribute('id', 'thecanvas');
+								//读取属性值
+								// var value= canvas.getAttribute('id');
+								document.getElementById('show').appendChild(canvas);
+								$('#img').attr("src", document.getElementById('thecanvas').toDataURL("image/jpeg"));
+								LTweenLite.to(btn01, 0.5, {
+									alpha: 1
+								});
+								var up = new bmp(0, 1800, imgList['up']);
+								up.scaleX = 0.5;
+								up.scaleY = 0.5;
+								up.x = rCenterWidth(up);
+								LTweenLite.to(up,0.8,{y:1700,alpha:0,loop:true,onComplete:function(){
+									up.alpha = 1;
+									up.y =  1750;
+								}});
+								sc.addChild(up);
+								touch.on(document, 'swipeup', function(ev) {
+	                              	$('.er').show().animate({'opacity':0},1000,function(){
+										$(this).hide();
+									})
+									LTweenLite.to(sc, 1.0, {
+										alpha: 0,
+										onComplete: function() {
+											sc.remove();
+											$('#getRed').hide();
+											$('#img').hide();
+										}
+									});
+									showRed();
+	                          	});
+							}
+						});
+					}, 20);
+				},250);
+				
+			},3000);
+		}});
+	}});
 }
 //首页
 function homepage(){
@@ -953,124 +1083,15 @@ function couplet(){
 				}});
 				brushLayer.addEventListener(LMouseEvent.MOUSE_DOWN,function(){
 					brushLayer.removeEventListener(LMouseEvent.MOUSE_DOWN);
-					hand.remove();
-					handTween.pause();
-					LTweenLite.to(word,0.5,{alpha:0,onComplete:function(){
-						$('.er').show().animate({'opacity':1},500);
-						LTweenLite.to(btn03,0.5,{alpha:1});
-						LTweenLite.to(reel01,0.2,{alpha:1});
-						LTweenLite.to(reel02,0.5,{alpha:1});
-						LTweenLite.to(reel03,0.5,{alpha:1,onComplete:function(){
-//							LTweenLite.remove(tween);
-//							LTweenLite.pauseAll ();
-							brushTween.pause();
-							reel01.show(1.5,2.0);
-							reel02.show(1.5,0);
-							reel03.show(1.5,1);
-							setTimeout(function(){
-								var rice = new bmp(358,780,imgList['rice']);
-								cLayer.addChild(rice);
-								var r1 = new LTransitionManager(rice);
-								var rm1 = {
-									type: LTransition.Fly,
-									startPoint: 5,
-									duration: 0.25,
-									direction: LTransition.IN,
-									easing: Strong.easeIn()
-								};
-								r1.startTransition(rm1);
-								$('#img').show();
-								$('#img').css('opacity',0);
-								btn01.visible=false;
-								btn02.visible=false;
-								setTimeout(function(){
-									html2canvas(gameOut, {
-										onrendered: function(canvas) {
-											//添加属性
-											canvas.setAttribute('id', 'thecanvas');
-											//读取属性值
-											// var value= canvas.getAttribute('id');
-											document.getElementById('show').appendChild(canvas);
-											$('#img').attr("src", document.getElementById('thecanvas').toDataURL("image/jpeg"));
-											btn01.visible=true;
-											btn02.visible=true;	
-											LTweenLite.to(btn01,0.5,{alpha:1});
-											LTweenLite.to(btn02,0.5,{alpha:1});
-										}
-									});
-								},20);
-								
-//								btn01.visible=true;
-//								btn02.visible=true;
-							},3000);	
-							$('#getRed').show();
-							$('#getRed').on('touchstart',function(){
-								$('.er').show().animate({'opacity':0},1000,function(){
-									$(this).hide();
-								})
-								LTweenLite.to(cLayer, 1.0, {
-									alpha: 0,
-									onComplete: function() {
-										cLayer.remove();
-										$('#getRed').hide();
-										$('#img').hide();
-									}
-								});
-								showRed();
-							});
+						LTweenLite.to(cLayer,1.0,{alpha:0,onComplete:function(){
+							cLayer.remove();
 						}});
-					}});
+						showCouplet();
 				});
 			}});
 		}});
 	}});
 	
-	var title = [];
-	switch(choiceType){
-		case 0:
-			var index = parseInt(businessUp.length*Math.random());
-			title[0] = businessMiddle[index];
-			title[1] = businessUp[index];
-			title[2] = businessDown[index];
-			break;
-		case 1:
-			var index = parseInt(whiteUp.length*Math.random());
-			title[0] = whiteMiddle[index];
-			title[1] = whiteUp[index];
-			title[2] = whiteDown[index];
-			break;
-		case 3:
-			var index = parseInt(studentUp.length*Math.random());
-			title[0] = studentMiddle[index];
-			title[1] = studentUp[index];
-			title[2] = studentDown[index];
-			break;
-		case 2:
-			var index = parseInt(wageUp.length*Math.random());
-			title[0] = wageMiddle[index];
-			title[1] = wageUp[index];
-			title[2] = wageDown[index];
-			break;
-	}
-	var btn01 = new bmp(133,1590,imgList['btn01']);
-	btn01.alpha = 0;
-	cLayer.addChild(btn01);
-	var btn02 = new btn(376,1590,imgList['btn02']);
-	btn02.alpha = 0;
-	cLayer.addChild(btn02);
-	var btn03 = new bmp(620,1590,imgList['btn03']);
-	btn03.alpha = 0;
-	cLayer.addChild(btn03);
-	var reel01 = new reels(title[0]);
-	reel01.alpha = 0;
-	cLayer.addChild(reel01);
-	var reel02 = new reelsv(130,488,title[1]);
-	reel02.alpha = 0;
-	cLayer.addChild(reel02);
-	reel01.y = reel02.y-20-reel01.getHeight();
-	var reel03= new reelsv(700,488,title[2]);
-	reel03.alpha = 0;
-	cLayer.addChild(reel03);
 	
 }
 //显示红包
@@ -1133,25 +1154,44 @@ function showRed(){
 	showLayer.addChild(open);
 	
 	//textBox
+	var openRed =  new btn(0, 1600, imgList['open']);
+	openRed.x = rCenterWidth(openRed);
+	showLayer.addChild(openRed);
 	//logo
-	var redWord = new bmp(0, 434, imgList['redWord']);
-	redWord.x = rCenterWidth(redWord);
-	redWord.alpha = 0;
-	showLayer.addChild(redWord);
-	
-	
+	var redWord1 = new setWrapText(0, 434,56,"环保枪纸胶，", '#440404', false, 420, false, 48, 3, 'happy');
+	redWord1.x = rCenterWidth(redWord1);
+	redWord1.alpha = 0;
+	showLayer.addChild(redWord1);
+	var redWord2 = new setWrapText(0, 507,56,"就选嘉力丰！", '#440404', false, 420, false, 48, 3, 'happy');
+	redWord2.x = rCenterWidth(redWord2);
+	redWord2.alpha = 0;
+	showLayer.addChild(redWord2);
+	var redWord3 = new setWrapText(0, 580,56,"嘉力丰给您拜早年啦！", '#440404', false, 420, false, 48, 3, 'happy');
+	redWord3.x = rCenterWidth(redWord3);
+	redWord3.alpha = 0;
+	showLayer.addChild(redWord3);
 	LTweenLite.to(showLayer,1.0,{alpha:1,onComplete:function(){
-		LTweenLite.to(redWord,1.0,{alpha:1,onComplete:function(){
-		
-		}});
+		LTweenLite.to(redWord1,1.0,{alpha:1});
+		LTweenLite.to(redWord2,1.0,{alpha:1});
+		LTweenLite.to(redWord3,1.0,{alpha:1});
 	}});
 	//红包提示
-	var redTips = new setWrapText(0,1220+money.getHeight(),50,"打开红包试试手气", 'white', false, 420, false, 48, 3, 'happy');
-	redTips.x = rCenterWidth(redTips);
-	showLayer.addChild(redTips);
-//	getRed();
+	var openStatus = true;
+	openRed.addEventListener(LMouseEvent.MOUSE_DOWN,function(){
+		if(openStatus==true)
+		{
+			openStatus = false;
+			opening();
+		}
+	});
 	open.addEventListener(LMouseEvent.MOUSE_DOWN,function(){
-		open.removeEventListener(LMouseEvent.MOUSE_DOWN);
+		if(openStatus==true)
+		{
+			openStatus = false;
+			opening();
+		}
+	});
+	function opening(){
 		LTweenLite.to(money,0.25,{rotate:360,loop:true,onComplete:function(){
 			money.rotate = 0;
 		}});
@@ -1191,9 +1231,7 @@ function showRed(){
 				}
 			});
 		},500);
-		
-	});
-	
+	}
 	
 
 }

@@ -48,13 +48,10 @@ var gameImg = [
 	{path:'img/reel01.png',type:'img',name:'reel01'},//卷轴
 	{path:'img/reel02.png',type:'img',name:'reel02'},//卷轴
 	{path:'img/btn01.png',type:'img',name:'btn01'},//按钮01
-	{path:'img/btn02.png',type:'img',name:'btn02'},//按钮02
-	{path:'img/btn03.png',type:'img',name:'btn03'},//按钮03
 	{path:'img/rice.png',type:'img',name:'rice'},//米粉
 	{path:'img/red.jpg',type:'img',name:'red'},//红包背面
 	{path:'img/littleSky.png',type:'img',name:'littleSky'},//小云
-//	{path:'img/open.png',type:'img',name:'open'},//打开
-	{path:'img/redWord.png',type:'img',name:'redWord'},//话
+	{path:'img/open.png',type:'img',name:'open'},//打开
 	{path:'img/money.png',type:'img',name:'money'},//钱
 	{path:'img/getRed.png',type:'img',name:'getRed'},//红包
 	{path:'img/star.png',type:'img',name:'star'},//星星
@@ -69,6 +66,8 @@ var gameImg = [
 	{path:'img/now.png',type:'img',name:'now'},//赶快收下
 	{path:'img/hand.png',type:'img',name:'hand'},//手
 	{path:'img/pop.jpg',type:'img',name:'pop'},//弹窗
+	{path:'img/coupleShow.jpg',type:'img',name:'coupleShow'},
+	{path:'img/up.png',type:'img',name:'up'},//手
 ];
 //全局变量
 var backLayer,musicLayer,imgList,choiceType=0;
@@ -160,12 +159,21 @@ function reels(question){
 	base(this,LSprite,[]);
 	var self = this;
 	self.bmp = rBmp(imgList['reel01']);
-	self.bmp.scaleX = 1.2;
-	self.x = 305.2;
-	self.y = 305;
+	self.x = 335;
+	self.y = 450;
 	self.addChild(self.bmp);
-	self.word = new setWrapText(0, 63,52,question, '#440404', false, 420, false, 48, 3, 'happy');
-	self.word.x = (self.bmp.getWidth()-self.word.getWidth())/2;
+	if(question.length<6)
+	{
+		self.word = new setWrapText(0, 0,76,question, '#ffe21c', false, 420, false, 48, 3, 'stliti');
+		self.word.x = (self.bmp.getWidth()-self.word.getWidth())/2;
+	}else if(question.length==8){
+		self.word = new setWrapText(0, 0,70,question, '#ffe21c', false, 420, false, 48, 3, 'stliti');
+		self.word.x = (self.bmp.getWidth()-self.word.getWidth())/2+5;
+	}else if(question.length==9){
+		self.word = new setWrapText(0, 0,66,question, '#ffe21c', false, 420, false, 48, 3, 'stliti');
+		self.word.x = (self.bmp.getWidth()-self.word.getWidth())/2+18;
+	}
+	self.word.y = (self.bmp.getHeight()-self.word.getHeight())/2;
 	self.addChild(self.word);
 	self.word.alpha = 0;
 }
@@ -183,17 +191,21 @@ function reelsv(x,y,question){
 	var h = self.bmp.getHeight();
 	
 	self.addChild(self.bmp);
-	if(question.length<14)
+	if(question.length<15)
 	{
-		self.word = new setWrapText(90, 0,59,question, '#440404', false, 42, true, 70, 3, 'happy');
-		self.bmp.scaleY = (self.word.getHeight()+120)/self.bmp.getHeight();
-		console.log(self.bmp.getHeight());
-		self.y += ((h- self.bmp.getHeight())/2);
-		self.word.y = 96;
+		self.word = new setWrapText(42, 0,62,question, '#ffe21c', false, 62, true, 65, 3, 'stliti');
+		self.word.y = (self.bmp.getHeight()-self.word.getHeight())/2+18-question.length;
 		
+	}else if(question.length==16){
+		self.word = new setWrapText(42, 0,62,question, '#ffe21c', false, 62, true, 65, 3, 'stliti');
+		self.bmp.scaleY = 1062/self.bmp.getHeight();
+		self.y = 451;
+		self.word.y = (self.bmp.getHeight()-self.word.getHeight())/2;
 	}else{
-		self.word = new setWrapText(100, 0,46,question, '#440404', false, 42, true, 52, 3, 'happy');
-		self.word.y = (self.bmp.getHeight()-self.word.getHeight())/2+26;
+		self.word = new setWrapText(42, 0,62,question, '#ffe21c', false, 62, true, 68, 3, 'stliti');
+		self.bmp.scaleY = 1062/self.bmp.getHeight();
+		self.y = 451;
+		self.word.y = (self.bmp.getHeight()-self.word.getHeight())/2;
 	}
 	self.addChild(self.word);
 	self.word.alpha = 0;

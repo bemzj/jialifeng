@@ -38,3 +38,7 @@ body{
     font-family: zcool;
     src: url('../fonts/zcool.ttf');
 }
+@font-face {
+    font-family: stliti;
+    src: url('../fonts/stliti.TTF');
+}
