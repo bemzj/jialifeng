@@ -162,15 +162,17 @@ function reels(question,className){
 	self.x = 335;
 	self.y = 450;
 	self.addChild(self.bmp);
+	$(className).append('<p>'+question+'</p>');
 	if(question.length<6)
 	{
 		
 	}else if(question.length==8){
-
+		$(className).css('font-size','0.38rem');
 	}else if(question.length==9){
-
+		$(className).css('font-size','0.36rem');
 	}
-	$(className).append('<p>'+question+'</p>');
+	
+	
 }
 
 function reelsv(x,y,question,className){
