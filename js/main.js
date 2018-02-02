@@ -82,23 +82,22 @@ function showCouplet(){
 			title[2] = wageDown[index];
 			break;
 	}
-	var reel01 = new reels(title[0]);
+	var reel01 = new reels(title[0],'.g3');
 	sc.addChild(reel01);
 	reel01.alpha = 0;
-	var reel03 = new reelsv(115,604,title[1]);
+	var reel03 = new reelsv(115,604,title[1],'.g1');
 	sc.addChild(reel03);
 	reel03.alpha = 0;
-	var reel02= new reelsv(816,604,title[2]);
+	var reel02= new reelsv(816,604,title[2],'.g2');
 	sc.addChild(reel02);
 	reel02.alpha = 0;
 	LTweenLite.to(sc,1.0,{alpha:1,onComplete:function(){
 		LTweenLite.to(reel01,1.0,{alpha:1});
 		LTweenLite.to(reel02,1.0,{alpha:1});
 		LTweenLite.to(reel03,1.0,{alpha:1,onComplete:function(){
-			reel01.show(1.5,2.0);
-			reel02.show(1.5,0);
-			reel03.show(1.5,1);
-			setTimeout(function(){
+			$('.g2').fadeIn(1500,function(){
+				$('.g1').fadeIn(1500,function(){
+					$('.g3').fadeIn(1500,function(){
 				//米粒
 				var rice = new bmp(358, 1140, imgList['rice']);
 				sc.addChild(rice);
@@ -136,6 +135,9 @@ function showCouplet(){
 								}});
 								sc.addChild(up);
 								touch.on(document, 'swipeup', function(ev) {
+									$('.g1').hide();
+									$('.g2').hide();
+									$('.g3').hide();
 	                              	$('.er').show().animate({'opacity':0},1000,function(){
 										$(this).hide();
 									})
@@ -153,8 +155,9 @@ function showCouplet(){
 						});
 					}, 20);
 				},250);
-				
-			},3000);
+					});
+				});
+			});
 		}});
 	}});
 }

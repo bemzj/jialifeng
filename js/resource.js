@@ -155,7 +155,7 @@ function answer(x,y,answer){
 	self.word.x = (self.bmp.getWidth()-self.word.getWidth())/2;
 	self.addChild(self.word);
 }
-function reels(question){
+function reels(question,className){
 	base(this,LSprite,[]);
 	var self = this;
 	self.bmp = rBmp(imgList['reel01']);
@@ -164,25 +164,16 @@ function reels(question){
 	self.addChild(self.bmp);
 	if(question.length<6)
 	{
-		self.word = new setWrapText(0, 0,76,question, '#ffe21c', false, 420, false, 48, 3, 'stliti');
-		self.word.x = (self.bmp.getWidth()-self.word.getWidth())/2;
+		
 	}else if(question.length==8){
-		self.word = new setWrapText(0, 0,70,question, '#ffe21c', false, 420, false, 48, 3, 'stliti');
-		self.word.x = (self.bmp.getWidth()-self.word.getWidth())/2+5;
+
 	}else if(question.length==9){
-		self.word = new setWrapText(0, 0,66,question, '#ffe21c', false, 420, false, 48, 3, 'stliti');
-		self.word.x = (self.bmp.getWidth()-self.word.getWidth())/2+18;
+
 	}
-	self.word.y = (self.bmp.getHeight()-self.word.getHeight())/2;
-	self.addChild(self.word);
-	self.word.alpha = 0;
-}
-reels.prototype.show=function(time,delay){
-	var self = this;
-	LTweenLite.to(self.word,time,{alpha:1,delay:delay});
+	$(className).append('<p>'+question+'</p>');
 }
 
-function reelsv(x,y,question){
+function reelsv(x,y,question,className){
 	base(this,LSprite,[]);
 	var self = this;
 	self.bmp = rBmp(imgList['reel02']);
@@ -193,24 +184,19 @@ function reelsv(x,y,question){
 	self.addChild(self.bmp);
 	if(question.length<15)
 	{
-		self.word = new setWrapText(42, 0,62,question, '#ffe21c', false, 62, true, 65, 3, 'stliti');
-		self.word.y = (self.bmp.getHeight()-self.word.getHeight())/2+18-question.length;
+		$(className).css({"top":"31.41%","height":"38.18%"});
 		
 	}else if(question.length==16){
-		self.word = new setWrapText(42, 0,62,question, '#ffe21c', false, 62, true, 65, 3, 'stliti');
 		self.bmp.scaleY = 1062/self.bmp.getHeight();
 		self.y = 451;
-		self.word.y = (self.bmp.getHeight()-self.word.getHeight())/2;
+		
 	}else{
-		self.word = new setWrapText(42, 0,62,question, '#ffe21c', false, 62, true, 68, 3, 'stliti');
 		self.bmp.scaleY = 1062/self.bmp.getHeight();
 		self.y = 451;
-		self.word.y = (self.bmp.getHeight()-self.word.getHeight())/2;
 	}
-	self.addChild(self.word);
-	self.word.alpha = 0;
+	for(var i=0;i<question.length;i++)
+	{
+		$(className).append('<p>'+question[i]+'</p>');
+	}
 }
-reelsv.prototype.show=function(time,delay){
-	var self = this;
-	LTweenLite.to(self.word,time,{alpha:1,delay:delay});
-}
+

@@ -10,6 +10,7 @@
 		<link rel="stylesheet" href="css/index.css" />
 		<script type="text/javascript" src="js/lufylegend-1.10.1.min.js" ></script>
 		<script src="https://cdn.bootcss.com/jquery/3.2.1/jquery.min.js"></script>
+		<script type="text/javascript" src="js/rem.js" ></script>
 		<style>
 			#content{
 				width: 100%;
@@ -36,13 +37,34 @@
 			}
 			.er{
 				position:absolute;
-				left: 66%;
-    			bottom: 5%;
-    			height: 23%;
-				display: none;
+				left: 72%;
+    			bottom: 10%;
+    			height: 12%;
+/*    			width: 100%;*/
+				display: flex;
+				justify-content: center;
+				align-items: center;
+				flex-direction: column;
+				display: -webkit-flex;
+				-webkit-align-items: center;
+				-webkit-justify-content: center;
+				-webkit-flex-direction: column;
 			}
-			.er img{
+			.erBox{
+				width: 100%;
+				position: absolute;
+				top: 102%;
+				left: 0;
+				font-size: 18px;
+				text-align: center;
+				line-height: 15px;
+				color: #450404;
+				font-family: 'black';
+				/*font-weight: bold;*/
+			}
+			.er>img{
 				height: 100%;
+				margin: 0 auto;
 			}
 			#music{
 				position: fixed;
@@ -55,6 +77,93 @@
 			#getRed{
 				display: none;
 			}
+			#gameOut>img{
+				width: 100%;
+				height: 100%;
+			}
+			#gameOut>.g1{
+				font-family: 'stliti';
+				width: 12.96%;
+				height: 55.3125%;
+				/*background-color: #000000;*/
+				color: #ffe21c;
+				position: absolute;
+				top: 23.54%;
+				left: 10.74%;
+				text-align: center;
+				font-size: 0.38rem;				
+				line-height: 0.38rem;
+				justify-content: center;
+				align-items: center;
+				flex-direction: column;
+				display: -webkit-flex;
+				-webkit-align-items: center;
+				-webkit-justify-content: center;
+				-webkit-flex-direction: column;
+				z-index: 100;
+			}
+			#gameOut>.g2{
+				font-family: 'stliti';
+				width: 12.96%;
+				height: 55.3125%;
+				/*background-color: #000000;*/
+				color: #ffe21c;
+				position: absolute;
+				top: 23.54%;
+				left: 75.46%;
+				text-align: center;
+				font-size: 0.38rem;
+				line-height: 0.38rem;
+				justify-content: center;
+				align-items: center;
+				flex-direction: column;
+				display: -webkit-flex;
+				-webkit-align-items: center;
+				-webkit-justify-content: center;
+				-webkit-flex-direction: column;
+				z-index: 100;
+			}
+			#gameOut>.g3{
+				font-family: 'stliti';
+				width: 37.2%;
+				height: 6.875%;
+				/*background-color: #000000;*/
+				color: #ffe21c;
+				position: absolute;
+				top: 23.4%;
+				left: 31%;
+				text-align: center;
+				font-size: 0.42rem;
+				line-height: 0.42rem;
+				justify-content: center;
+				align-items: center;
+				flex-direction: column;
+				display: -webkit-flex;
+				-webkit-align-items: center;
+				-webkit-justify-content: center;
+				-webkit-flex-direction: column;
+				z-index: 10;
+			}
+			#gameOut>.g1 p{
+				margin-bottom: 0.02rem;
+				height: 0.38rem;
+			}
+			#gameOut>.g1 p:nth-child(1){
+				margin-top: 0.1rem;
+			}
+			#gameOut>.g2 p:nth-child(1){
+				margin-top: 0.1rem;
+			}
+			#gameOut>.g1 p:nth-last-child(1){
+				margin-bottom: 0px;
+			}
+			#gameOut>.g2 p{
+				margin-bottom: 0.02rem;
+				height: 0.38rem;
+			}
+			#gameOut>.g2 p:nth-last-child(1){
+				margin-bottom: 0px;
+			}
 		</style>
 		<script src="https://cdn.bootcss.com/touchjs/0.2.14/touch.min.js"></script>
 	</head>
@@ -65,15 +174,28 @@
 			<img src="img/loading.gif" />
 		</div>
 		<div id="gameOut">
+			<div class="g1" style="display: none;">
+				
+			</div>	
+			<div class="g2" style="display: none;">
+				
+			</div>
+			<div class="g3" style="display: none;">
+			
+			</div>
 			<div id="game"></div>
 			<div class="er">
-				<img src="img/er.png" />
+				<img src="img/er.jpg" />
+				<div class="erBox">
+					<p>扫码输入</p>
+					<p><u>春节</u>测试</p>
+				</div>
 			</div>
 		</div>
 		<div id="show" style="display: none; position: fixed;top: 0;left: 0;width: 100%;height: 100%;z-index: 10;">
 			
 		</div>
-		<img id="img" style="display: none;position: fixed;top: 0;left: 0;width: 100%;height: 100%;z-index: 11;"/>
+		<img id="img" style="display: none;position: fixed;top: 0;left: 0;width: 100%;height: 100%;z-index: 1100;"/>
 		<div id="getRed">
 			
 		</div>
