@@ -49,7 +49,8 @@ function showCouplet(){
 	sky.bigAndSmall(2, 2, 2, 0.02, 0, true);
 	sc.addChild(sky);
 	//长按保存
-	var btn01 = new bmp(152,1596,imgList['btn01']);
+	var btn01 = new bmp(152,1586,imgList['btn01']);
+	btn01.x = rCenterWidth(btn01);
 	btn01.alpha = 0;
 	sc.addChild(btn01);
 	
@@ -121,7 +122,7 @@ function showCouplet(){
 								//读取属性值
 								// var value= canvas.getAttribute('id');
 								document.getElementById('show').appendChild(canvas);
-								$('#img').attr("src", document.getElementById('thecanvas').toDataURL("image/jpeg"));
+								$('#img').attr("src", document.getElementById('thecanvas').toDataURL("image/png"));
 								LTweenLite.to(btn01, 0.5, {
 									alpha: 1
 								});
