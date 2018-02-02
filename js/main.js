@@ -614,7 +614,7 @@ function select(){
 	logo.x = rCenterWidth(logo);
 	logo.bigAndSmall(2, 2, 2, 0.05, 0, true);
 	selectLayer.addChild(logo);
-	var word = new setWrapText(0, 325,60, "匹配专属春联", '#ffc727', false, 420, false, 48, 3, 'zcool');
+	var word = new setWrapText(0, 325,60, "匹配专属春联", '#ffc727', false, 420, false, 48, 3, 'happy');
 	word.x = rCenterWidth(word);
 	word.alpha = 0;
 	selectLayer.addChild(word);
@@ -974,7 +974,7 @@ function problem(randow,sort,time){
 	logo.x = rCenterWidth(logo);
 	logo.bigAndSmall(2, 2, 2, 0.05, 0, true);
 	proLayer.addChild(logo);
-	var word = new setWrapText(0, 320,68, "狗年大吉", '#ffc727', false, 420, false, 48, 3, 'zcool');
+	var word = new setWrapText(0, 320,68, "狗年大吉", '#ffc727', false, 420, false, 48, 3, 'happy');
 	word.x = rCenterWidth(word);
 	word.alpha = 0;
 	proLayer.addChild(word);
@@ -1272,7 +1272,7 @@ function getRed(){
 		words[2] = new setWrapText(0, 518,50,data.money+"元的红包！", '#ffc223', false, 420, false, 48, 3, 'happy');
 		words[2].x = rCenterWidth(words[2]);
 		wordLayer.addChild(words[2]);
-		words[3] = new setWrapText(0, 1060,240,data.money+"元", '#ffc223', false, 420, false, 48, 3, 'zcool');
+		words[3] = new setWrapText(0, 1060,240,data.money+"元", '#ffc223', false, 420, false, 48, 3, 'happy');
 		setTimeout(function(){
 			words[3].x = rCenterWidth(words[3]);
 		},100);
